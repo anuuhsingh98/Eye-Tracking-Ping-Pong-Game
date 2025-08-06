@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eye-Tracking Pong Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+    <link rel="stylesheet" href="game.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="game-container">
+      <!-- Background Video for Menu Screen -->
+
+      <!-- Loading Screen -->
+      <div class="loading-overlay" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <h2>Initializing Eye Tracking...</h2>
+        <p id="loadingText">Please allow camera access</p>
+        <button
+          class="menu-button"
+          onclick="useSimplifiedTracking()"
+          style="margin-top: 2rem"
+        >
+          Skip Eye Tracking (Use Mouse/Keyboard)
+        </button>
+      </div>
+
+      <!-- Main Menu -->
+
+      <div class="menu-screen" id="menuScreen">
+        <h1 class="game-title">EYEPONG</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; text-align: center">
+          Ping-Pong build with Love ♡ by Anuhh
+        </p>
+        <div style="text-align: center; margin-bottom: 2rem">
+          <a href="https://github.com/anuuhsingh98" target="_blank">
+            <i class="fa-brands fa-github github-icon"></i>
+          </a>
+        </div>
+        <button class="menu-button" onclick="startCalibration()">
+          Start Game
+        </button>
+        <button class="menu-button" onclick="showInstructions()">
+          How to Play
+        </button>
+      </div>
+
+      <!-- Calibration Screen -->
+      <div class="calibration-screen" id="calibrationScreen">
+        <h2 style="margin-bottom: 2rem">Eye Tracking Calibration</h2>
+        <p style="margin-bottom: 2rem; text-align: center">
+          Look at the dot and follow it with your eyes<br />
+          Keep your head still and centered
+        </p>
+        <div class="calibration-dot" id="calibrationDot"></div>
+        <p style="margin-top: 2rem" id="calibrationProgress">Position 1 of 5</p>
+      </div>
+
+      <!-- Game Canvas -->
+      <canvas
+        class="game-canvas"
+        id="gameCanvas"
+        width="1000"
+        height="600"
+      ></canvas>
+
+      <!-- HUD -->
+      <div class="hud">
+        <div class="player-score">Player: <span id="playerScore">0</span></div>
+        <div class="ai-score">AI: <span id="aiScore">0</span></div>
+      </div>
+
+      <!-- Eye Tracking Indicator -->
+      <div class="eye-tracking-indicator" id="eyeIndicator"></div>
+
+      <!-- Camera View -->
+      <div class="camera-view">
+        <video class="camera-video" id="cameraVideo" autoplay muted></video>
+      </div>
+
+      <!-- Instructions -->
+      <div class="instructions">
+        <p>Move your eyes up and down to control your paddle</p>
+        <p>First to 7 points wins!</p>
+      </div>
+
+      <!-- Hidden video for MediaPipe -->
+      <video id="hiddenVideo" style="display: none" autoplay muted></video>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
